@@ -23,6 +23,7 @@
 
 html, body {
   height: 100%;
+  min-height: 100dvh;
   background: #000;
   display: flex;
   align-items: center;
@@ -31,8 +32,8 @@ html, body {
 }
 
 #app {
-  width: 360px;
-  min-height: 560px;
+  width: min(360px, 100vw);
+  min-height: min(560px, 100dvh);
   background: var(--bg);
   border-radius: 14px;
   overflow: hidden;
@@ -43,15 +44,15 @@ html, body {
 
 .viewport {
   display: flex;
-  width: 720px;
-  min-height: 560px;
+  width: calc(min(360px, 100vw) * 2);
+  min-height: min(560px, 100dvh);
   transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
 }
-.viewport.show-settings { transform: translateX(-360px); }
+.viewport.show-settings { transform: translateX(calc(min(360px, 100vw) * -1)); }
 
 .panel {
-  width: 360px;
-  min-height: 560px;
+  width: min(360px, 100vw);
+  min-height: min(560px, 100dvh);
   flex-shrink: 0;
   background: var(--bg);
 }
@@ -291,10 +292,16 @@ html, body {
 }
 .notify.show { transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+  html, body { align-items: stretch; justify-content: stretch; }
   #app { width: 100vw; border-radius: 0; min-height: 100dvh; }
-  .viewport { min-height: 100dvh; }
-  .panel { min-height: 100dvh; }
+  .viewport { width: 200vw; min-height: 100dvh; }
+  .viewport.show-settings { transform: translateX(-100vw); }
+  .panel { width: 100vw; min-height: 100dvh; }
+  .ring-wrap svg { width: min(250px, 80vw); height: min(250px, 80vw); }
+  .ring-wrap { padding-bottom: 2px; }
+  .stats { padding-bottom: 12px; }
+  .settings-body { max-height: calc(100dvh - 140px); }
 }
 </style>
 </head>
